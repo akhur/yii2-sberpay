@@ -76,14 +76,17 @@ class SberpayInvoice extends ActiveRecord
     /**
      * Добавление оплаты через сбербанк
      * @param integer|null $relatedID Идентификатор заказа
+     * @param string|null $suffix Суффикс у номера заказа
      * @param string|null $relatedModel Название модели
+     * @param int|null $orderID
+     * @param string|null $url
      * @param array $data Массив дополнительные данных
      * @return self
      */
-    public static function addSberbank($relatedID, $relatedModel, $orderID, $url, $data = [])
+    public static function addSberbank($relatedID, $suffix, $relatedModel, $orderID, $url, $data = [])
     {
         $model = new self();
-        $model->related_id = $relatedID . '-' . $relatedModel;
+        $model->related_id = $relatedID . '-' . $suffix;
         $model->related_model = $relatedModel;
         $model->orderId = $orderID;
         $model->url = $url;
@@ -92,9 +95,15 @@ class SberpayInvoice extends ActiveRecord
         return $model;
     }
 
-    public static function getOrderID($relatedID, $relatedModel)
+    /**
+     * @param $relatedID
+     * @param $suffix
+     * @param $relatedModel
+     * @return null
+     */
+    public static function getOrderID($relatedID, $suffix, $relatedModel)
     {
-        $model = self::findOne(['related_id' => $relatedID . '-' . $relatedModel, 'related_model' => $relatedModel]);
+        $model = self::findOne(['related_id' => $relatedID . '-' . $suffix, 'related_model' => $relatedModel]);
         if ($model) {
             return $model->orderId;
         }

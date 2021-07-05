@@ -28,6 +28,7 @@ php composer.phar require akhur/yii2-sberpay "*"
             'merchantLogin' => '',
             'merchantPassword' => '',
             'orderModel' => '', //модель таблицы заказов
+            'suffix' => '', //суфикс для номера заказа, чтобы не было дублей
             'isTest' => false,
             'registerPreAuth' => false,
             'returnUrl' => '/payment/result-payment',
