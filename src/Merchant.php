@@ -104,7 +104,7 @@ class Merchant extends BaseObject
 
         SberpayInvoice::addSberbank($orderID, $this->getNumberSuffix(), $this->relatedModel, $orderId, $formUrl, $data);
 
-        return Yii::$app->response->redirect($formUrl);
+        return $formUrl;
     }
 
     public function continue($orderID, $sum)
